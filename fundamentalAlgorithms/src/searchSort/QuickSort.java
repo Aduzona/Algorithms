@@ -6,7 +6,7 @@ public class QuickSort {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-	int[] arr= {5,3,1,9,2,2,6,8,7,5};   //{4,3,1,9,2,10,6,8,7,5};
+	int[] arr= {4,3,1,9,2,10,6,8,7,5};
 qsort(arr,0,arr.length-1);
 		
 	}
@@ -19,8 +19,9 @@ qsort(arr,0,arr.length-1);
 		while(i<j) {
 			for(i=first; i<j;i++) {
 				System.out.println("Array at i "+i+Arrays.toString(arr));
-				if(arr[i]>pivot) {
+				if(arr[i]>=pivot) {
 					System.out.println("when Arr i>pivot "+i+Arrays.toString(arr));
+					System.out.println("when Arr j>pivot "+j+Arrays.toString(arr));
 					while(j!=i) {
 						
 						if(arr[j]<=pivot) {
@@ -28,9 +29,11 @@ qsort(arr,0,arr.length-1);
 							temp = arr[i]; 
 							arr[i] = arr[j]; 
 							arr[j] = temp; //swap
+							break;
 						}
 						j--;
-						break;
+						
+						
 					}
 					
 				}
