@@ -6,57 +6,45 @@ public class MergeSort {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		int[] arr= {5,3,1,9,2,2,6,8,7,5};
+		int[] arr= {5, 3, 4, 7, 2, 2};
+		System.out.println("Initial Array :"+Arrays.toString(arr));
 		mergeSort (arr);
 	}
-
-	public static void mergeSort (int [] arr) {   
-		int na = arr.length / 2;   
-		int nb = arr.length - na;      // mind integer division    
-		int [] arrLeft = new int[na];     // split c: copy parts   
-		for ( int i = 0; i < na; i++)
-			arrLeft[i] = arr[i];    
-		int [] arrRight = new int[nb];   
-		for ( int j = 0; j < nb; j++) 
-			arrRight[j] = arr[j+na];   
-		if (arrLeft.length > 1) 
-			mergeSort (arrLeft);    // recursive sort   
-		if (arrRight.length > 1) 
-			mergeSort (arrRight);     
+	// auxiliary function for recursive sorting by merging
+		private static void _mergeSort(int a[], int copy[], int start, int end){
 		
-		System.out.println(Arrays.toString(arr));
-		merge (arrLeft,arrRight,arr); // merge  
-		}
-	/*static void merge (int [] arrLeft, int [] arrRight, int [] arr) { 
-		int i = 0;         //index subarray arrLeft   
-		int j = 0;         //index subarray arrRight   
-		int k = 0;         //index array arr   
-		for ( k = 0; k < arr.length; k++) {       
-			if      (i >= arrLeft.length )      
-				arr[k] = arrRight[j++];      
-			else if (j >= arrRight.length )     
-				arr[k] = arrLeft[i++];      
-			else if (arrLeft[i] <= arrRight[j]) 
-				arr[k] = arrLeft[i++];      
-			else         
-				arr[k] = arrRight[j++];   
-			}
-		}
-		*/
-	static void merge (int [] arrLeft, int [] arrRight, int [] arr) { 
-		int i = 0;         //index subarray arrLeft   
-		int j = 0;         //index subarray arrRight   
-		int k = 0;         //index array arr   
-		for ( k = 0; k < arr.length; k++) {  
-			if (i < arrLeft.length-1) {
-				arr[k]=arrLeft[i++];
-			}else if(j< arrRight.length-1) {
-				arr[k]=arrRight[j++];
-			}else if (arrLeft[i] <= arrRight[j]) 
-				arr[k] = arrLeft[i++];      
-			else         
-				arr[k] = arrRight[j++];   
-			}
+			if (start < end) {
+				int mid = (start + end) / 2;
+				//System.out.println("Divide :"+Arrays.toString(a));
+				_mergeSort(a, copy, start, mid);
+				//System.out.println("copy :"+Arrays.toString(copy));
+			_mergeSort(a, copy, mid + 1, end);
+			
+				merge(a, copy, start, mid, end);
+				//System.out.println("copy[] :"+Arrays.toString(copy));
+				System.out.println("a[] :"+Arrays.toString(a));
 				
+			}
 		}
-	}
+		
+		private static void merge(int a[], int copy[], int start, int m, int end) {
+			int i = 0, j = start, k;
+			while (j <= m)
+				copy[i++] = a[j++];
+			i = 0;
+			k = start;
+			while (k < j && j <= end) {
+				if (copy[i] <= a[j])
+					a[k++] = copy[i++];
+				else
+					a[k++] = a[j++];
+			}
+			while (k < j)
+				a[k++] = copy[i++];
+		}
+		    
+		public static  void mergeSort(int[] a) {
+			_mergeSort(a, new int[a.length], 0, a.length - 1);
+		}
+		
+}
