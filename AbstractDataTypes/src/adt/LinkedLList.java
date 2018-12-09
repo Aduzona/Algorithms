@@ -2,7 +2,7 @@ package adt;
 
 //import adt.LinkedList.Node;
 
-public abstract class LinkedLList<E> implements List<E> { //Error show while writing like this: public class LinkedLList implements List<E> 
+public abstract class LinkedLList<E> implements List<E>,Stack<E> { //Error show while writing like this: public class LinkedLList implements List<E> 
 //public abstract class LinkedLList<E> implements List<E> 
 	private class Node<E>{ //Inner Node Class defined within the LinkedList
 		private E item; //reference to the stored at this node
@@ -72,5 +72,76 @@ public abstract class LinkedLList<E> implements List<E> { //Error show while wri
 		length--;
 		return removed;
              
+	}
+	
+	
+	//ITERATORS
+	
+	public int numOccur(E searchItem) {       // to search for an Item
+		int numOccur = 0;      
+		Node<E> travNode = head.nextNode; // skip the dummy head node      #
+		while(travNode != null)         
+			if (travNode.item.equals(searchItem))             
+				numOccur++;          
+		travNode = travNode.nextNode;     
+		      
+	return numOccur;    
+	
+	}
+	
+	
+	public ListIterator iterator() { 
+		return new LinkedLListIterator(); 
+		}    
+	private class LinkedLListIterator implements ListIterator<E> {      
+		private Node<E> nextToVisit;                // the next node to visit      
+		private Node<E> lastVisited;                // the most recently visited node       
+		public LinkedLListIterator() {          
+			nextToVisit = head.nextNode;             // skip over dummy node          
+			lastVisited = null;       
+			}     
+		public boolean hasNext() {
+			return (nextToVisit != null); 
+			}      
+		public <E> next() {         
+			if (nextToVisit != null)          
+				E item = nextToVisit.item;          
+			lastVisited = nextToVisit;         
+			nextToVisit = lastVisited.nextNode;         
+			return item;       
+			
+		}
+		@Override
+		public Object next() {
+			// TODO Auto-generated method stub
+			return null;
+		}
+	}
+	
+	//STACK
+	private Node<E> top;                     
+	public void LinkedLStack() {         //constructs a list that is initially empty.      
+		top = new Node< >(null, null);    
+		}    
+	public boolean isEmpty() {       
+		return (top == null);   
+		}    
+	public boolean isFull2() {       
+		return false;   
+		 
+	}
+	
+	 public E top( ) {       
+		 if (isEmpty( ))          
+			 return null;
+		 return top.item;    
+		 }    
+	 public E pop( ) {       
+		 if (isEmpty( ))          
+			 return null;        
+		 E answer = top.item;       
+		 top = top.nextNode;   
+		 
+		 return answer;
 	}
 }
