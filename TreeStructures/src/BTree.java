@@ -48,4 +48,62 @@ public class BTree<E> {
 		return oldRightChild;    
 	}
 
+	public void preorderPrint() {        
+		BTree<E> root = this.getRoot();      
+		preorderPrintTree(root);    
+		}
+	
+	private void preorderPrintTree(BTree<E> root) {   
+		System.out.print(root.item + "");     
+		if (root.left != null)         
+			preorderPrintTree(root.left);       
+		if (root.right != null)          
+			preorderPrintTree(root.right);    
+		}
+	
+	public void postorderPrint() {      
+		BTree<E> root = this.getRoot();       
+		postorderPrintTree(root);   
+		}    
+	
+	private void postorderPrintTree(BTree<E> root) {      
+		if (root.left != null)          
+			postorderPrintTree(root.left);       
+		if (root.right != null)          
+			postorderPrintTree(root.right);       
+		System.out.print(root.item + " ");   
+		}
+	
+	public void inorderPrint() {       
+		BTree<E> root = this.getRoot();       
+		inorderPrintTree(root);    
+		}    
+	
+	private void inorderPrintTree(BTree<E> root) {       
+		if (root.left != null)          
+			inorderPrintTree(root.left);       
+		System.out.print(root.item + " ");       
+		if (root.right != null)          
+			inorderPrintTree(root.right); 
+		}
+	
+	public void levelOrderPrint() {       
+		BTree<E> root = this.getRoot();       
+		levelOrderPrintTree(root);    
+		}   
+	
+	private void levelOrderPrintTree(BTree<E> root) {       
+		Queue< BTree<E> > treeQueue = new Queue< Btree<E> >(); //create a queue for nodes       
+		treeQueue.enqueue(root);                               //enqueue root      
+		while (!treeQueue.isEmpty()){              //is queue empty?         
+			BTree<E> node = treeQueue.dequeue();    //removes first node from the queue          
+			System.out.print(root.item + " ");         
+			if (node.left != null)             
+				treeQueue.enqueue(node.left);        //add leftChild to queue          
+			if (node.right != null)             
+				treeQueue.enqueue(node.right);       //add rightChild to queue     
+			}   
+		} 
+		}
+	}
 }
